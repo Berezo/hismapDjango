@@ -3,19 +3,17 @@
 {% block content %}
 
 <a href="{% url 'hismapapp:hiscontext-create' %}">add</a>
-	<caption>Expenses</caption>
+<table>
+	<caption>Historical context</caption>
 	<thead>
 	  <tr>
-		<th>no.</th>
-		<th>category</th>
 		<th>name</th>
-		<th>amount</th>
-		<th>date</th>
+		<th>period_start</th>
+		<th>period_end</th>
 		<th>actions</th>
 	  </tr>
 	</thead>
 	<tbody>
-
 	{% for obj in object_list %}
 	  <tr>
 		<td>{{obj.name|default:"-" }}</td>
