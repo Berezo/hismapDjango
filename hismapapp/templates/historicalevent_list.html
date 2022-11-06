@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<a href="{% url 'hismapapp:hisevent-create' %}">add</a>
+<table>
+	<caption>Historical event</caption>
+	<thead>
+	  <tr>
+		<th>name</th>
+		<th>historical context</th>
+		<th>date</th>
+		<th>description</th>
+		<th colspan="2">belligerents</th>
+		<th colspan="2">commanders</th>
+		<th colspan="2">strength</th>
+		<th>result</th>
+		<th>geometry</th>
+		<th>actions</th>
+	  </tr>
+	</thead>
+	<tbody>
+	{% for obj in object_list %}
+	  <tr>
+		<td>{{obj.name|default:"-" }}</td>
+		<td>{{obj.historical_context|default:"-" }}</td>
+		<td>{{obj.date|default:"-"}}</td>
+		<td>{{obj.description|default:"-"}}</td>
+		<td>{{obj.belligerent_1|default:"-"}}</td>
+		<td>{{obj.belligerent_2|default:"-"}}</td>
+		<td>{{obj.commander_1|default:"-"}}</td>
+		<td>{{obj.commander_2|default:"-"}}</td>
+		<td>{{obj.strength_1|default:"-"}}</td>
+		<td>{{obj.strength_2|default:"-"}}</td>
+		<td>{{obj.result|default:"-"}}</td>
+		<td>{{obj.geometry|default:"-"}}</td>
+		<td>
+		  <a href="{% url 'hismapapp:hisevent-edit' obj.ogc_fid %}">edit</a>
+		  <a href="{% url 'hismapapp:hisevent-delete' obj.ogc_fid %}">delete</a>
+		</td>
+	  </tr>
+	  {% empty %}
+	  <tr>
+		<td colspan="5">no items</td>
+	  </tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}
