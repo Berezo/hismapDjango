@@ -7,15 +7,6 @@ class HistoricalEventForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['name'].required = True
-        for field in iter(self.fields):
-            if field != 'typ':
-                self.fields[field].widget.attrs.update({
-                    'class': 'form-control'
-                })
-            else:
-                self.fields[field].widget.attrs.update({
-                    'class': 'form-select'
-                })
     
     class Meta:
         model = HistoricalEvent

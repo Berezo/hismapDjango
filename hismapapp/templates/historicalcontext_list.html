@@ -1,27 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<a href="{% url 'hismapapp:hiscontext-create' %}">add</a>
-<div class="row row-cols-1 row-cols-md-2 g-4">
-  {% for obj in object_list %}
-  <div class="col-sm-6">
-    <div class="card text-center">
-      <div class="card-body">
-        <h5 class="card-title">{{obj.name|default:"-" }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{obj.period_start|default:"?" }} - {{obj.period_end|default:"?"}}</h6>
-        <p class="card-text">{{ obj.description }}</p>
-
-        <a href="{% url 'hismapapp:hiscontext-edit' obj.id %}" class="btn btn-primary">Edit</a>
-        <a href="{% url 'hismapapp:hiscontext-delete' obj.id %}" class="btn btn-danger">Delete</a>
-        <a href="{% url 'hismapapp:hisevent-list' obj.id %}">Go</a>
-      </div>
+<div class="container">
+    <a href="{% url 'hismapapp:hiscontext-create' %}">add</a>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for obj in object_list %}
+    <div class="col-sm-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">{{obj.name|default:"-" }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{obj.period_start|default:"?" }} - {{obj.period_end|default:"?"}}</h6>
+                <p class="card-text">{{ obj.description }}</p>
+                <a href="{% url 'hismapapp:hiscontext-edit' obj.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'hismapapp:hiscontext-delete' obj.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'hismapapp:hisevent-list' obj.id %}">Go</a>
+            </div>
+        </div>
     </div>
-  </div>
-  {% empty %}
+    {% empty %}
     <div class="col-sm-12">
-		<p>No items yet!</p>
+        <p>No items yet!</p>
 	</div>
-  {% endfor %}
+    {% endfor %}
+    </div>
 </div>
 {% endblock %}

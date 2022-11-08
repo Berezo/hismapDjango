@@ -23,6 +23,10 @@ class HistoricalEventCreateView(CreateView):
     model = HistoricalEvent
     form_class = HistoricalEventForm
 
+class HistoricalEventUpdateView(UpdateView):
+    model = HistoricalEvent
+    form_class = HistoricalEventForm
+
 def geojson(request, context_id):
     model = HistoricalEvent
     data = serialize('geojson', model.objects.filter(historical_context=context_id), geometry_field='geometry')

@@ -7,50 +7,69 @@
 {% block content %}
 
 <a href="{% url 'hismapapp:hisevent-create' %}">add</a>
-<table>
-	<caption>Historical event</caption>
-	<thead>
-	  <tr>
-		<th>name</th>
-		<th>historical context</th>
-		<th>date</th>
-		<th>description</th>
-		<th colspan="2">belligerents</th>
-		<th colspan="2">commanders</th>
-		<th colspan="2">strength</th>
-		<th>result</th>
-		<th>geometry</th>
-		<th>actions</th>
-	  </tr>
-	</thead>
-	<tbody>
-	{% for obj in object_list %}
-	  <tr>
-		<td>{{obj.name|default:"-" }}</td>
-		<td>{{obj.historical_context|default:"-" }}</td>
-		<td>{{obj.date|default:"-"}}</td>
-		<td>{{obj.description|default:"-"}}</td>
-		<td>{{obj.belligerent_1|default:"-"}}</td>
-		<td>{{obj.belligerent_2|default:"-"}}</td>
-		<td>{{obj.commander_1|default:"-"}}</td>
-		<td>{{obj.commander_2|default:"-"}}</td>
-		<td>{{obj.strength_1|default:"-"}}</td>
-		<td>{{obj.strength_2|default:"-"}}</td>
-		<td>{{obj.result|default:"-"}}</td>
-		<td>{{obj.geometry|default:"-"}}</td>
-		<td>
-		  <a href="{% url 'hismapapp:hisevent-edit' obj.ogc_fid %}">edit</a>
-		  <a href="{% url 'hismapapp:hisevent-delete' obj.ogc_fid %}">delete</a>
-		</td>
-	  </tr>
-	  {% empty %}
-	  <tr>
-		<td colspan="5">no items</td>
-	  </tr>
-	{% endfor %}
-	</tbody>
-</table>
-<div id="map"></div>
+<div class="row " style="padding-top:30px">
+    <div class="col-8 no-gutters" style="padding: 0">
+        <div id="map"></div>
+    </div>
+    <div id="scroll" class="overflow-auto col-4 no-gutters" style="max-height: 870px; max-width: 100%; padding: 0">
+        <div class="accordion" id="accordionExample">
+        {% for obj in object_list %}
+            <div class="accordion-item" id="heading{{ obj.ogc_fid }}">
+                <button class="accordion-button collapsed text-white bg-primary" id="accord{{ obj.ogc_fid }}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{  obj.ogc_fid }}" aria-expanded="true" aria-controls="collapse{{  obj.ogc_fid }}">
+                     {{  obj.name }} {{  obj.date }}
+                </button>
+            </div>
+            <div id="collapse{{ obj.ogc_fid }}" class="accordion-collapse collapse " aria-labelledby="heading{{ obj.ogc_fid }}" data-bs-parent="#accordionExample">
+                <div class="accordion-body bg-primary bg-opacity-75 text-white" id="card{{ obj.ogc_fid }}">
+                    {{ obj.description|default:""}}
+                    {% if obj.belligerent_1 or obj.belligerent_2 %}
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                Belligerents
+                            </div>
+                            <div class="col-6 text-start">
+                                {{ obj.belligerent_1|default:""}}
+                            </div>
+                            <div class="col-6 text-end">
+                                {{ obj.belligerent_2|default:""}}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if obj.commander_1 or obj.commander_2 %}
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                Commanders
+                            </div>
+                            <div class="col-6 text-start">
+                                {{ obj.commander_1|default:""}}
+                            </div>
+                            <div class="col-6 text-end">
+                                {{ obj.commander_2|default:""}}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if obj.strength_1 or obj.strength_2 %}
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                Strength
+                            </div>
+                            <div class="col-6 text-start">
+                                {{ obj.strength_1|default:""}}
+                            </div>
+                            <div class="col-6 text-end">
+                                {{ obj.strength_2|default:""}}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if obj.result %}
+                        Result: {{ obj.result|default:""}}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 
