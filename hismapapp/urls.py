@@ -1,7 +1,7 @@
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.urls import path, reverse_lazy
 from .models import HistoricalContext, HistoricalEvent
-from .views import HistoricalEventListView, HistoricalEventCreateView
+from .views import HistoricalEventListView, HistoricalEventCreateView, geojson
 
 urlpatterns = [
     path('hiscontext/list/',
@@ -61,13 +61,5 @@ urlpatterns = [
             template_name='generic_delete.html'
          ),
          name='hisevent-delete'),
+    path('geojson/<int:context_id>', geojson),
 ]
-
-    # path('hisevent/create/',
-    #      CreateView.as_view(
-    #         model=HistoricalEvent,
-    #         fields='__all__',
-    #         success_url=reverse_lazy('hismapapp:hisevent-list'),
-    #         template_name='generic_update.html'
-    #      ),
-    #      name='hisevent-create'),

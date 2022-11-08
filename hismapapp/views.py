@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.core.serializers import serialize
+from django.http import HttpResponse
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 
 from .models import HistoricalEvent
@@ -20,3 +22,8 @@ class HistoricalEventListView(ListView):
 class HistoricalEventCreateView(CreateView):
     model = HistoricalEvent
     form_class = HistoricalEventForm
+
+def geojson(request, context_id):
+    model = HistoricalEvent
+    data = serialize('geojson', model.objects.filter(historical_context=context_id), geometry_field='geometry')
+    return HttpResponse(data, content_type = 'application/geo+json')
