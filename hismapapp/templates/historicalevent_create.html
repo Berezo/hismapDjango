@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ form.media }}
+{% endblock %}
+{% block content %}
+<div class="col">
+    <form method="post">
+        <h3> New historical event</h3>
+        {% csrf_token %}
+        {% for field in form %}
+            <label for="{{ field.auto_id }}" class="form-label"> {{ field.label }}</label>
+            {{ field }}
+        {% endfor %}
+        <br/>
+        <button type="submit" class="btn btn-success ">Dodaj</button>
+    </form>
+</div>
+{% endblock %}

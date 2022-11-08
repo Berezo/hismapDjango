@@ -1,7 +1,7 @@
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.urls import path, reverse_lazy
 from .models import HistoricalContext, HistoricalEvent
-from .views import HistoricalEventListView
+from .views import HistoricalEventListView, HistoricalEventCreateView
 
 urlpatterns = [
     path('hiscontext/list/',
@@ -39,18 +39,11 @@ urlpatterns = [
              template_name='historicalevent_list.html'
           ),
          name='hisevent-list'),
-    path('hisevent/list/',
-         ListView.as_view(
-             model=HistoricalEvent,
-             template_name='historicalevent_list.html'
-          ),
-         name='hisevent-list'),
     path('hisevent/create/',
-         CreateView.as_view(
+         HistoricalEventCreateView.as_view(
             model=HistoricalEvent,
-            fields='__all__',
-            success_url=reverse_lazy('hismapapp:hisevent-list'),
-            template_name='generic_update.html'
+            success_url=reverse_lazy('hismapapp:hiscontext-list'),
+            template_name='historicalevent_create.html'
          ),
          name='hisevent-create'),
     path('hisevent/<int:pk>/edit/',
@@ -69,3 +62,12 @@ urlpatterns = [
          ),
          name='hisevent-delete'),
 ]
+
+    # path('hisevent/create/',
+    #      CreateView.as_view(
+    #         model=HistoricalEvent,
+    #         fields='__all__',
+    #         success_url=reverse_lazy('hismapapp:hisevent-list'),
+    #         template_name='generic_update.html'
+    #      ),
+    #      name='hisevent-create'),
