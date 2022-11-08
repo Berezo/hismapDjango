@@ -8,6 +8,7 @@ class HistoricalContext(models.Model):
     name = models.CharField(blank=True, null=True, max_length=80)
     period_start = models.CharField(blank=True, null=True, max_length=80)
     period_end = models.CharField(blank=True, null=True, max_length=80)
+    description = models.CharField(blank=True, null=True, max_length=254)
     
     def __str__(self):
         return f'{self.name}'

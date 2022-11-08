@@ -3,33 +3,24 @@
 {% block content %}
 
 <a href="{% url 'hismapapp:hiscontext-create' %}">add</a>
-<table>
-	<caption>Historical context</caption>
-	<thead>
-	  <tr>
-		<th>name</th>
-		<th>period_start</th>
-		<th>period_end</th>
-		<th>actions</th>
-	  </tr>
-	</thead>
-	<tbody>
-	{% for obj in object_list %}
-	  <tr>
-		<td>{{obj.name|default:"-" }}</td>
-		<td>{{obj.period_start|default:"-" }}</td>
-		<td>{{obj.period_end|default:"-"}}</td>
-		<td>
-		  <a href="{% url 'hismapapp:hiscontext-edit' obj.id %}">edit</a>
-		  <a href="{% url 'hismapapp:hiscontext-delete' obj.id %}">delete</a>
-		</td>
-	  </tr>
-	  {% empty %}
-	  <tr>
-		<td colspan="5">no items</td>
-	  </tr>
-	{% endfor %}
-	</tbody>
-</table>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  {% for obj in object_list %}
+  <div class="col-sm-6">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">{{obj.name|default:"-" }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{obj.period_start|default:"?" }} - {{obj.period_end|default:"?"}}</h6>
+        <p class="card-text">{{ obj.description }}</p>
 
+        <a href="{% url 'hismapapp:hiscontext-edit' obj.id %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'hismapapp:hiscontext-delete' obj.id %}" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+    <div class="col-sm-12">
+		<p>No items yet!</p>
+	</div>
+  {% endfor %}
+</div>
 {% endblock %}
