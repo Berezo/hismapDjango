@@ -21,7 +21,7 @@ class HistoricalEvent(models.Model):
     ogc_fid = models.AutoField(primary_key=True, blank=True)
     name = models.CharField(blank=True, null=True, max_length=80)
     historical_context = models.ForeignKey(HistoricalContext, models.PROTECT, null=True, blank=True)
-    date = models.DateField(blank=True, null=True)
+    date = models.CharField(blank=True, null=True, max_length=254)
     description = models.CharField(blank=True, null=True, max_length=254)
     belligerent_1 = models.CharField(blank=True, null=True, max_length=254)
     belligerent_2 = models.CharField(blank=True, null=True, max_length=254)
